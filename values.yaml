@@ -1,7 +1,11 @@
-# values.yaml
-operator:
-  console:
-    service:
-        type: NodePort
-        ## Specify a nodePort if you need a specific port number
-        nodePort: 30090
+replicaCount: 1
+image:
+    repository: quay.io/minio/minio
+    tag: latest
+    pullPolicy: Always
+service:
+    port: 9090
+    targetPort: 9090
+    type: NodePort
+    nodePort: 30090
+hostPath: /home/felixchung/data
