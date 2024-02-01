@@ -5,12 +5,14 @@ metadata:
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.consolePort }}
+    - name: console
+      port: {{ .Values.service.consolePort }}
       targetPort: {{ .Values.service.consoleTargetPort }}
       {{- if and (eq .Values.service.type "NodePort") (not (empty .Values.service.consoleNodePort)) }}
       nodePort: {{ .Values.service.consoleNodePort }}
       {{- end }}
-    - port: {{ .Values.service.s3Port }}
+    - name: s3
+      port: {{ .Values.service.s3Port }}
       targetPort: {{ .Values.service.s3TargetPort }}
       {{- if and (eq .Values.service.type "NodePort") (not (empty .Values.service.s3NodePort)) }}
       nodePort: {{ .Values.service.s3NodePort }}
