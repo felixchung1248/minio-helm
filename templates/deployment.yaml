@@ -20,9 +20,10 @@ spec:
             - name: localvolume
               mountPath: /data
           command: ["/bin/bash"]
-          args: ["-c","minio server /data --console-address :9090"]
+          args: ["-c","minio server /data --console-address :{{ .Values.service.consolePort }}"]
           ports:
-            - containerPort: {{ .Values.service.port }}
+            - containerPort: {{ .Values.service.consolePort }}
+            - containerPort: {{ .Values.service.s3Port }}
       volumes:
         - name: localvolume
           hostPath: # MinIO generally recommends using locally-attached volumes

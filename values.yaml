@@ -4,8 +4,11 @@ image:
     tag: latest
     pullPolicy: Always
 service:
-    port: 9090
-    targetPort: 9090
     type: NodePort
-    nodePort: 30090
+    consolePort: 9090
+    consoleTargetPort: 9090
+    consoleNodePort: 30090
+    s3Port: 9000
+    s3TargetPort: 9000
+    s3NodePort: 30900
 hostPath: /home/felixchung/data
