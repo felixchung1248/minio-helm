@@ -11,4 +11,5 @@ service:
     s3Port: 9000
     s3TargetPort: 9000
     s3NodePort: 30900
-hostPath: /home/felixchung/data
+storage: 
+    size: 10G
