@@ -19,14 +19,15 @@ spec:
           volumeMounts:
             - name: storage
               mountPath: /data
-            - name: certgen-volume
-              mountPath: /usr/src/app
           command: ["/bin/bash"]
           args:
             - "-c"
             - |
-              ./usr/src/app/certgen -host datamgmtdemo01.eastasia.cloudapp.azure.com
-              minio server /data --console-address :{{ .Values.service.consolePort }}
+              /certgen -host datamgmtdemo01.eastasia.cloudapp.azure.com
+              mkdir /cert
+              mv private.key /cert
+              mv public.crt /cert
+              minio server --certs-dir /cert /data --console-address :{{ .Values.service.consolePort }}
           ports:
             - containerPort: {{ .Values.service.consolePort }}
             - containerPort: {{ .Values.service.s3Port }}
@@ -34,9 +35,3 @@ spec:
         - name: storage
           persistentVolumeClaim:
             claimName: {{ include "minio.fullname" . }}-pvc
-        - name: certgen-volume
-          configMap:
-            name: {{ include "minio.fullname" . }}
-            items:
-              - key: certgen
-                path: certgen
